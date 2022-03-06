@@ -97,8 +97,24 @@ var getWeatherData = function(){
             forecastEl.append(divCardEl);
         }
  }
-
-//getCityDetails(city);
+ 
+ var showSearchHistory = function(){
+    var cities = JSON.parse(localStorage.getItem("cities"));
+    var ulEl = $('.search-history');
+    ulEl.empty();
+    if(cities)
+    {
+        for(var i=0 ; i< cities.length; i++)
+        {
+            var liEl = $("<li>");
+            var btnEl = $("<button>")
+                        .addClass("pure-button btn");
+            btnEl.text(cities[i]);
+            liEl.append(btnEl);
+            ulEl.append(liEl);
+        }
+    }
+ }
 
 var showData = function(event){
     event.preventDefault();
@@ -107,6 +123,8 @@ var showData = function(event){
     $(".forecast").empty();
 
     var inputCityEl = $("#search").val();
+    //To test for duplicates another cariable
+    var chosenCity = (inputCityEl.trim()).toLowerCase();
     console.log(inputCityEl);
     if(inputCityEl)
     {
@@ -114,13 +132,29 @@ var showData = function(event){
         if(!cities){
             cities =[];
         }
-        cities.push(inputCityEl);
-        //showSearchHistory();
+
+        //Push the searched city only if it doesn't exist in local storage.
+        if(!cities.some(value => value == chosenCity))
+        {
+            cities.push(inputCityEl);
+        }               
 
         localStorage.setItem("cities", JSON.stringify(cities));
+        showSearchHistory();
         getCityDetails(inputCityEl);        
     }
     $(inputCityEl).val('');
  }
 
+ var showDataUsingHistory = function()
+{
+    var el = $(this);
+    $(".weather-today").empty();
+    $(".header-forecast").empty();
+    $(".forecast").empty();
+    getCityDetails(el.text());
+}
+
 $(".search-form").submit(showData);
+$(".search-history").on("click","button",showDataUsingHistory);
+showSearchHistory();
