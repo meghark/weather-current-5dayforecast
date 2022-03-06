@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <title>Weather Dashboard</title>
+</head>
+<body >
+    <header class="title">
+        <h1 class="brand-logo center">Weather Dashboard</h1>
+    </header>
+    <!--To DO go through bootstrap customization chapter-->
+    <main class="content pure-g">
+        <div class="pure-u-1 pure-u-md-1-5" >
+            <div  id="search-section">
+                <h2>Search for a City:</h2>
+                <form>
+                    <div class="input-field">
+                        <input id="search" class="enter-text" type="search" required>
+                        <button type="submit" class="pure-button pure-button-primary btn">Search</button>   
+                    </div>
+                </form>
+              <ul class="search-history">
+                <li>
+                    <button type="submit" class="pure-button btn  button-large">Austin</button>   
+                </li>
+                <li>
+                    <button type="submit" class="pure-button btn">San Diego</button>   
+                </li>
+                <li>
+                    <button type="submit" class="pure-button btn">New York</button>   
+                </li>
+                <li>
+                    <button type="submit" class="pure-button btn">San Francisco</button>   
+                </li> 
+             </ul>
+            </div>            
+        </div> 
+        <div class="pure-u-1 pure-u-md-4-5">
+            <div class="pure-g container">
+                <div class="pure-u-1">
+                    <ul class="weather-today splash-head"/>
+                        <li class="day card-item">Atlanta (3/30/2021)</li>
+                        <li class="card-item">Temp: 74.01F</li>
+                        <li class="card-item">Wind: 74.01F</li>
+                        <li class="card-item">Humidity: 74.01F</li>
+                        <li class="card-item">UV Index: 74.01F</li>
+                    </ul> 
+                </div>
+                <div class="pure-u-1">
+                    <h2>5-Day Forecast:</h2>
+                </div>
+
+                <div class="pure-u-1">
+                    <div class="pure-g">
+                        <div class="pure-u-1 pure-u-md-1-5">
+                            <ul class="weatherCard">
+                                <li class="day">3/31/2021</li>
+                                <li>Temp: 73.72F</li>
+                                <li>Wind: 5.53 Mph</li>
+                                <li>Humidity: 58%</li>
+                            </ul>
+                        </div>
+
+                        <div class="pure-u-1 pure-u-md-1-5">
+                            <ul class="weatherCard">
+                                <li class="day">3/31/2021</li>
+                                <li>Temp: 73.72F</li>
+                                <li>Wind: 5.53 Mph</li>
+                                <li>Humidity: 58%</li>
+                            </ul>
+                        </div>
+
+                        <div class="pure-u-1 pure-u-md-1-5">
+                            <ul class="weatherCard">
+                                <li  class="day">3/31/2021</li>
+                                <li>Temp: 73.72F</li>
+                                <li>Wind: 5.53 Mph</li>
+                                <li>Humidity: 58%</li>
+                            </ul>
+                        </div>
+
+                        <div class="pure-u-1 pure-u-md-1-5">
+                            <ul class="weatherCard">
+                                <li  class="day">3/31/2021</li>
+                                <li>Temp: 73.72F</li>
+                                <li>Wind: 5.53 Mph</li>
+                                <li>Humidity: 58%</li>
+                            </ul>
+                        </div>
+
+                        <div class="pure-u-1 pure-u-md-1-5">
+                            <ul class="weatherCard">
+                                <li  class="day">3/31/2021</li>
+                                <li>Temp: 73.72F</li>
+                                <li>Wind: 5.53 Mph</li>
+                                <li>Humidity: 58%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>                         
+            </div>                    
+        </div>
+    </main>
+      
+    
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
+
