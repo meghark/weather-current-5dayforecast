@@ -15,6 +15,7 @@ The website provides the current and 5 -day forecast for the use rprovided city.
 * Javascript
 * Jquery
 * Pure CSS
+* Open weather api
 
 ## Website
 https://meghark.github.io/weather-current-5dayforecast/
