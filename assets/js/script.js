@@ -22,8 +22,29 @@ var getCityDetails = function(city)
         //console.log(lon);
     })
     .then (function(){
-        //getWeatherData();
+        getWeatherData();
     });
 }
+
+var getWeatherData = function(){
+    var url = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=imperial";
+
+    fetch(url)
+    .then(function(response){
+        return response.json();
+    })
+    .then(function(data){
+        printCurrentWeather(data.current);
+        printForecastWeather(data.daily);       
+    });
+ }
+
+ var printCurrentWeather = function(data){
+    console.log(data);
+ }
+
+ var printForecastWeather = function(data){
+    console.log(data);
+ }
 
 getCityDetails('San Diego');
