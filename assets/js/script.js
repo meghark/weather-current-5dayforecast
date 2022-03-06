@@ -98,4 +98,29 @@ var getWeatherData = function(){
         }
  }
 
-getCityDetails(city);
+//getCityDetails(city);
+
+var showData = function(event){
+    event.preventDefault();
+    $(".weather-today").empty();
+    $(".header-forecast").empty();
+    $(".forecast").empty();
+
+    var inputCityEl = $("#search").val();
+    console.log(inputCityEl);
+    if(inputCityEl)
+    {
+        var cities = JSON.parse(localStorage.getItem("cities"));
+        if(!cities){
+            cities =[];
+        }
+        cities.push(inputCityEl);
+        //showSearchHistory();
+
+        localStorage.setItem("cities", JSON.stringify(cities));
+        getCityDetails(inputCityEl);        
+    }
+    $(inputCityEl).val('');
+ }
+
+$(".search-form").submit(showData);
