@@ -66,25 +66,67 @@ var getWeatherData = function(geoLoc){
     });
  }
 
+var getColorClass = function(idx){
+    var returnColor ='';
+    var index = parseFloat(idx);
+    //debugger;
+    if (index <= 2)
+    {
+        returnColor ="uv-color-green";
+    }
+    else if(index >= 3 && index <= 5 )
+    {
+        returnColor ="uv-color-yellow";
+    }
+    else if(index >= 6 && index <= 7)
+    {
+        returnColor ="uv-color-orange";
+    }
+    else if(index >= 8 && index <= 10)
+    {
+        returnColor ="uv-color-red";
+    }  
+    return returnColor;
+}
+
  var printCurrentWeather = function(data){
     //console.log("Printing icon section",data.weather[0].icon);
     var weatherIconUrl = "https://openweathermap.org/img/wn/"+data.weather[0].icon+".png";
     var getWeatherTodayEl = $(".weather-today");
     var getDate = new Date(data.dt * 1000); 
     var cityDate = city+' ('+getDate.toLocaleDateString()+') ';
-    var temp = data.temp+"F";
-    var wind = data.wind_speed+" mph";
-    var humidity = data.humidity+"%";
+    var temp = "Temp: "+data.temp+"F";
+    var wind = "Wind: "+data.wind_speed+" mph";
+    var humidity = "Humidity: "+data.humidity+"%";
     var uvi = data.uvi;   
 
-    var listCityEl = $("<li>").addClass("day card-item").text(cityDate);
-    var weatherImage = $("<img>").addClass("weathericon");    
+    var colorCodingUvi =getColorClass(uvi);    
+    console.log(colorCodingUvi);
+
+    var listCityEl = $("<li>")
+                    .addClass("day card-item")
+                    .text(cityDate);
+    var weatherImage = $("<img>")
+                    .addClass("weathericon");    
     weatherImage.attr("src", weatherIconUrl);
     listCityEl.append(weatherImage);
-    var tempEl = $("<li>").addClass("card-item").text(temp);
-    var windEl = $("<li>").addClass("card-item").text(wind);
-    var humidityEl = $("<li>").addClass("card-item").text(humidity);
-    var uvEl = $("<li>").addClass("card-item").text(uvi);
+    var tempEl = $("<li>")
+                    .addClass("card-item")
+                    .text(temp);
+    var windEl = $("<li>")
+                    .addClass("card-item")
+                    .text(wind);
+    var humidityEl = $("<li>")
+                    .addClass("card-item")
+                    .text(humidity);
+    var uvEl = $("<li>")
+                .addClass("card-item")
+                .text("UV Index:");
+    var spanUvEl = $("<span>")
+                .addClass("uv-index")
+                .addClass(colorCodingUvi)
+                .text(uvi);
+    uvEl.append(spanUvEl);
     
     getWeatherTodayEl.append(listCityEl,tempEl,windEl, humidityEl, uvEl);
  }
@@ -117,11 +159,11 @@ var getWeatherData = function(geoLoc){
             iconEl.append(weatherImageEl);
 
             var tempEl = $("<li>")
-                        .text(current.temp.max);
+                        .text("Temp: "+current.temp.max);
             var windEl = $("<li>")
-                        .text(current.wind_speed+" Mph");
+                        .text("Wind: "+current.wind_speed+" Mph");
             var humidityEl = $("<li>")
-                        .text(current.humidity+" %");
+                        .text("Humidity: "+current.humidity+" %");
 
             ulEl.append(dateEl,iconEl, tempEl, windEl, humidityEl);
             divCardEl.append(ulEl);

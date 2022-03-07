@@ -68,4 +68,28 @@ form{
 
 .weather-daily-icon{
     width: 10%;  
+    vertical-align: top;
+}
+
+.uv-index{
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);     
+    padding:2px 10px;
+}
+
+.uv-color-green{
+    background: rgb(28, 184, 65);
+}
+
+.uv-color-yellow{
+    background: rgb(255, 255, 0);
+}
+
+.uv-color-orange{
+    background: rgb(223, 117, 20);
+}
+
+.uv-color-red{
+    background: rgb(255, 0, 0);
 }
