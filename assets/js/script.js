@@ -2,7 +2,6 @@ var api_key="b6c9caa257a28a219fbe8ce4353a3c83";
 //var geoDetails ={};
 var lon='';
 var lat='';
-var inputEl = $(".search");
 var city='';
 
 var getCityDetails = function(city)
@@ -68,15 +67,20 @@ var getWeatherData = function(geoLoc){
  }
 
  var printCurrentWeather = function(data){
+    //console.log("Printing icon section",data.weather[0].icon);
+    var weatherIconUrl = "https://openweathermap.org/img/wn/"+data.weather[0].icon+".png";
     var getWeatherTodayEl = $(".weather-today");
     var getDate = new Date(data.dt * 1000); 
-    var cityDate = city+' ('+getDate.toLocaleDateString()+')';
+    var cityDate = city+' ('+getDate.toLocaleDateString()+') ';
     var temp = data.temp+"F";
     var wind = data.wind_speed+" mph";
     var humidity = data.humidity+"%";
     var uvi = data.uvi;   
 
     var listCityEl = $("<li>").addClass("day card-item").text(cityDate);
+    var weatherImage = $("<img>").addClass("weathericon");    
+    weatherImage.attr("src", weatherIconUrl);
+    listCityEl.append(weatherImage);
     var tempEl = $("<li>").addClass("card-item").text(temp);
     var windEl = $("<li>").addClass("card-item").text(wind);
     var humidityEl = $("<li>").addClass("card-item").text(humidity);
@@ -94,10 +98,11 @@ var getWeatherData = function(geoLoc){
         for (var i =0 ; i<5; i++)
         {
             var current = data[i];
+            var weatherIconUrl = "https://openweathermap.org/img/wn/"+current.weather[0].icon+".png";
             var getDate = new Date(current.dt * 1000);  
             
             var divCardEl = $("<div>")
-                            .addClass("pure-u-1 pure-u-md-1-5");
+                            .addClass("pure-u-1 pure-u-lg-1-5");
             
             var ulEl = $("<ul>")
                         .addClass("weatherCard");
@@ -105,6 +110,12 @@ var getWeatherData = function(geoLoc){
             var dateEl = $("<li>")
                         .addClass("day")
                         .text(getDate.toLocaleDateString());
+            var iconEl = $("<li>");
+            var weatherImageEl = $("<img>").
+                        addClass("weather-daily-icon");    
+            weatherImageEl.attr("src", weatherIconUrl);
+            iconEl.append(weatherImageEl);
+
             var tempEl = $("<li>")
                         .text(current.temp.max);
             var windEl = $("<li>")
@@ -112,7 +123,7 @@ var getWeatherData = function(geoLoc){
             var humidityEl = $("<li>")
                         .text(current.humidity+" %");
 
-            ulEl.append(dateEl, tempEl, windEl, humidityEl);
+            ulEl.append(dateEl,iconEl, tempEl, windEl, humidityEl);
             divCardEl.append(ulEl);
             forecastEl.append(divCardEl);
         }
@@ -157,8 +168,9 @@ var showData = function(event){
     var el = $(this);
     $(".weather-today").empty();
     $(".header-forecast").empty();
-    $(".forecast").empty(); 
-    getCityDetails(el.text());  
+    $(".forecast").empty();
+    city = el.text();
+    getCityDetails(city);  
 }
 
 $(".search-form").submit(showData);
