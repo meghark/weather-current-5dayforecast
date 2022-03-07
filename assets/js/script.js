@@ -1,8 +1,9 @@
 var api_key="b6c9caa257a28a219fbe8ce4353a3c83";
+//var geoDetails ={};
 var lon='';
 var lat='';
-var city='Manilla';
 var inputEl = $(".search");
+var city='';
 
 var getCityDetails = function(city)
 {
@@ -16,21 +17,37 @@ var getCityDetails = function(city)
         return response.json();
     })
     .then (function(data){  
-        //console.log(data);             
-        lat = data[0].lat;
-        lon = data[0].lon;
-        //console.log(lat);
-        //console.log(lon);
-    })
-    .then (function(){
-        getWeatherData();
+        console.log(data);     
+        lat= data[0].lat ;
+        lon= data[0].lon ;
+        if(lat && lon)
+        {
+            var cities = JSON.parse(localStorage.getItem("cities"));
+            if(!cities){
+                cities =[];
+            }
+            //Push the searched city only if it doesn't exist in local storage.
+            if(!cities.some(value => value.toLowerCase() == city.toLowerCase()))
+            {
+                cities.push(city);
+            } 
+            localStorage.setItem("cities", JSON.stringify(cities));
+            getWeatherData();
+            showSearchHistory();        
+        }
+    })    
+    .catch(function (error)
+    {console.log("Error while accessing geo api in openweathermap ,", error);
+        return 0;
     });
 }
 
-var getWeatherData = function(){
+var getWeatherData = function(geoLoc){
     //This api call will use the latitude and longitude to return current and forecast data.
     //The web page displays only the current and  daily data. So the api call includes the parameter to exclude minutely, hourly , alerts etc.
     //Fetch only the rquired information.
+    console.log(lat);
+    console.log(lon);
     var url = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=imperial&exclude=minutely,hourly,alerts";
 
     fetch(url)
@@ -44,6 +61,9 @@ var getWeatherData = function(){
 
         //Call the following function to display the 5 day forecast. Only the forecast weather details are passed to the function.
         printForecastWeather(data.daily);       
+    })
+    .catch( function(error){
+        console.log("Errow while calling openweathermap onecall api ,", error);
     });
  }
 
@@ -122,28 +142,14 @@ var showData = function(event){
     $(".header-forecast").empty();
     $(".forecast").empty();
 
-    var inputCityEl = $("#search").val();
-    //To test for duplicates another cariable
-    var chosenCity = (inputCityEl.trim()).toLowerCase();
-    console.log(inputCityEl);
-    if(inputCityEl)
-    {
-        var cities = JSON.parse(localStorage.getItem("cities"));
-        if(!cities){
-            cities =[];
-        }
+    city = $("#search").val().trim();
+      
+    console.log(city);
 
-        //Push the searched city only if it doesn't exist in local storage.
-        if(!cities.some(value => value == chosenCity))
-        {
-            cities.push(inputCityEl);
-        }               
-
-        localStorage.setItem("cities", JSON.stringify(cities));
-        showSearchHistory();
-        getCityDetails(inputCityEl);        
-    }
-    $(inputCityEl).val('');
+    if(city)
+    {        
+        getCityDetails(city);   
+    }    
  }
 
  var showDataUsingHistory = function()
@@ -151,8 +157,8 @@ var showData = function(event){
     var el = $(this);
     $(".weather-today").empty();
     $(".header-forecast").empty();
-    $(".forecast").empty();
-    getCityDetails(el.text());
+    $(".forecast").empty(); 
+    getCityDetails(el.text());  
 }
 
 $(".search-form").submit(showData);
