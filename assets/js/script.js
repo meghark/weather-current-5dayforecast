@@ -70,19 +70,20 @@ var getColorClass = function(idx){
     var returnColor ='';
     var index = parseFloat(idx);
     //debugger;
+    //Function calculates the class to assign based on the UV index.
     if (index <= 2)
     {
         returnColor ="uv-color-green";
     }
-    else if(index >= 3 && index <= 5 )
+    else if(index > 2 && index <= 5 )
     {
         returnColor ="uv-color-yellow";
     }
-    else if(index >= 6 && index <= 7)
+    else if(index > 5 && index <= 7)
     {
         returnColor ="uv-color-orange";
     }
-    else if(index >= 8 && index <= 10)
+    else if(index > 7 && index <= 10)
     {
         returnColor ="uv-color-red";
     }  

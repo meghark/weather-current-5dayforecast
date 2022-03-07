@@ -21,7 +21,7 @@ The website provides the current and 5 -day forecast for the use rprovided city.
 https://meghark.github.io/weather-current-5dayforecast/
 
 ## Website screenshot
-![Mockup for finished website](./assets/images/scheduler.PNG?raw=true)
+![Mockup for finished website](./assets/images/weather.PNG?raw=true)
 
 ## Contribution
 Created by Megha Kulathattil.
