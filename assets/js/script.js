@@ -45,7 +45,8 @@ var getCityDetails = function(city)
 var getWeatherData = function(geoLoc){
     //This api call will use the latitude and longitude to return current and forecast data.
     //The web page displays only the current and  daily data. So the api call includes the parameter to exclude minutely, hourly , alerts etc.
-    //Fetch only the rquired information.
+    //Fetch only the required information.
+    //Unit is set as imperial in api call, this is to have temprature values in farenhiet, wind in mph in reponse.
     console.log(lat);
     console.log(lon);
     var url = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+api_key+"&units=imperial&exclude=minutely,hourly,alerts";
