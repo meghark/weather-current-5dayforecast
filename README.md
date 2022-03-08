@@ -2,12 +2,13 @@
 
 ## Purpose
 
-The website provides the current and 5 -day forecast for the use rprovided city.
+The website provides the current and 5 -day forecast for the user provided city.
 * User can search for a city in the search box.
 * Weather data will be fetched using openweathermap api's.
 * The page will have current days weather data including temperature, humidity , wind etc.
-* A 5 day forecast for the page will also be shown.
+* A 5 day forecast for the city will also be shown.
 * All previously searched cities are also available on the page to choose from.
+* uv index is color coded.
 
 ## Built With
 * Html
