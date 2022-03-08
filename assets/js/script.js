@@ -21,6 +21,7 @@ var getCityDetails = function(city)
         lon= data[0].lon ;
         if(lat && lon)
         {
+            //If the user provided a valid city name save the city name for later searches.
             var cities = JSON.parse(localStorage.getItem("cities"));
             if(!cities){
                 cities =[];
@@ -96,7 +97,7 @@ var getColorClass = function(idx){
     var getWeatherTodayEl = $(".weather-today");
     var getDate = new Date(data.dt * 1000); 
     var cityDate = city+' ('+getDate.toLocaleDateString()+') ';
-    var temp = "Temp: "+data.temp+"F";
+    var temp = "Temp: "+data.temp;
     var wind = "Wind: "+data.wind_speed+" mph";
     var humidity = "Humidity: "+data.humidity+"%";
     var uvi = data.uvi;   
@@ -106,7 +107,7 @@ var getColorClass = function(idx){
 
     var listCityEl = $("<li>")
                     .addClass("day card-item")
-                    .text(cityDate);
+                    .text(cityDate);    
     var weatherImage = $("<img>")
                     .addClass("weathericon");    
     weatherImage.attr("src", weatherIconUrl);
@@ -114,6 +115,9 @@ var getColorClass = function(idx){
     var tempEl = $("<li>")
                     .addClass("card-item")
                     .text(temp);
+    var tempUnitEl = $("<span>")
+                .html(" &#8457;");
+    tempEl.append(tempUnitEl);
     var windEl = $("<li>")
                     .addClass("card-item")
                     .text(wind);
@@ -161,6 +165,9 @@ var getColorClass = function(idx){
 
             var tempEl = $("<li>")
                         .text("Temp: "+current.temp.max);
+            var tempUnitEl = $("<span>")
+                        .html(" &#8457;");
+            tempEl.append(tempUnitEl);
             var windEl = $("<li>")
                         .text("Wind: "+current.wind_speed+" Mph");
             var humidityEl = $("<li>")
@@ -204,6 +211,8 @@ var showData = function(event){
     {        
         getCityDetails(city);   
     }    
+    $("#search").val('');
+
  }
 
  var showDataUsingHistory = function()
@@ -216,6 +225,11 @@ var showData = function(event){
     getCityDetails(city);  
 }
 
+//Event listener for when user enters a city and clicks search
 $(".search-form").submit(showData);
+
+//Event listener for when user clicks on a previously searched city
 $(".search-history").on("click","button",showDataUsingHistory);
+
+//Show search history on page load
 showSearchHistory();
